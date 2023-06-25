@@ -24,12 +24,12 @@
         <div>
             {{msg}}
         </div>
-<!--    <router-view></router-view>-->
 
 </template>
 
 <script>
 import axios from "axios";
+import {novelList} from "@/api";
 
 export default {
     name: "novel_page",
@@ -44,9 +44,7 @@ export default {
     },
     methods: {
         page_load () {
-            axios.get(
-                "http://localhost:5000/novel/page/load",
-            )
+            novelList()
                 .then((res)=>{
                     this.novel_list = res.data
                 })
