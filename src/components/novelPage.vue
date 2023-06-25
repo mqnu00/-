@@ -19,6 +19,7 @@
 
 <script>
 import axios from "axios";
+import {volumeList} from "@/api";
 
 export default {
     name: "novelPage",
@@ -36,9 +37,7 @@ export default {
 
         page_load () {
 
-            axios.get(
-                "http://localhost:5000/volumeList?novel_id=" + this.novel_id,
-            )
+            volumeList(this.novel_id)
                 .then((res)=>{
                     this.volume_list = res.data
                 })

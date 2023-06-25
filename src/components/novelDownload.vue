@@ -2,7 +2,7 @@
 
     <form>
         <p>用户名： <input v-model="username" placeholder="用户名"></p>
-        <p>密码： <input v-model="password" placeholder="密码"></p>
+        <p>密码： <input type="password" v-model="password" placeholder="密码"></p>
         <p>小说主页： <input v-model="novelUrl" placeholder="小说主页"></p>
         <p>小说下载页： <input v-model="novelDownloadUrl" placeholder="小说下载页"></p>
         <p><input type="button" value="下载" @click="download"></p>
@@ -15,6 +15,7 @@
 
 <script>
 import axios from "axios";
+import {download, update} from "@/api";
 
 export default {
     name: "novelDownload",
@@ -39,10 +40,7 @@ export default {
                 'novelDownloadUrl': this.novelDownloadUrl,
             }
 
-            axios.post(
-                "http://localhost:5000/download",
-                data
-            )
+            download(data)
                 .then((res)=>{
                     this.res = res.data['content']
                     this.err = res.data['error']
@@ -53,9 +51,7 @@ export default {
         },
 
         update () {
-            axios.get(
-                "http://localhost:5000/update"
-            )
+            update()
                 .then((res)=>{
                     this.res = res.data['content']
                     this.err = res.data['error']

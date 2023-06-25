@@ -47,6 +47,7 @@
 
 <script>
 import axios from "axios";
+import {volumeReader} from "@/api";
 
 export default {
     name: "read_page",
@@ -96,9 +97,7 @@ export default {
 
         page_load () {
 
-              axios.get(
-                  "http://localhost:5000/volumeReader?volume_id=" + this.volume_id,
-              )
+              volumeReader(this.volume_id)
                   .then((res)=>{
                       this.volume_info=res.data[0].content
                   })
@@ -122,22 +121,6 @@ export default {
             this.font_size_data = 14 + (this.font_size - 1) * 2 + "px"
             this.msg = this.font_size_data
         },
-        tip_click(){
-            let data = {
-                'novel_id': this.novel_id,
-                'volume_id': this.volume_id,
-            }
-            axios.post(
-                "http://localhost:5000/test",
-                    data
-            )
-                .then((res)=>{
-                    this.volume_info = res.data[0].content
-                })
-                .catch((err)=>{
-                    console.log(err)
-                })
-        }
     }
 }
 </script>
